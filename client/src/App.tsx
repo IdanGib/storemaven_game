@@ -1,5 +1,5 @@
 import './App.css';
-import Shape, { GameShapes } from './components/shape';
+import Shape, { GameShapes } from './components/Shape';
 
 function App() {
   return (
