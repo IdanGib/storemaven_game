@@ -8,6 +8,7 @@ export class AppService {
       this._scores[name] = 0;
     }
     this._scores[name] += score;
+    return { name, score: this._scores[name] };
   }
   get scores() {
     return Object.keys(this._scores).map((s) => ({

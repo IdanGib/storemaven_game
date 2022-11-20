@@ -27,7 +27,6 @@ export class AppController {
     @Query('score', ParseIntPipe) score: number,
     @Query('name') name: string,
   ) {
-    this.appService.setPlayerScore(name, score);
-    return { name, score };
+    return this.appService.setPlayerScore(name, score);
   }
 }
