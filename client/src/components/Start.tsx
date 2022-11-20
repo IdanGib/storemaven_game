@@ -24,11 +24,12 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   const [indicator, setIndicator] = useState<0 | 1 | 2>(1);
   const initShape = getRandomShape();
   const initSide = getRandomeSide();
-  const [state, setState] = useState<{ shape: GameShapes, side: Sides }>({ shape: initShape, side: initSide });
+  const [state, setState] = useState<{ shape: GameShapes, side: Sides }>();
 
   const updateIndicator = useCallback(async () => {
+    console.log('update indicator');
     setIndicator(1);
-    await Utils.wait(1000);
+    await Utils.wait(3000);
     setIndicator(2);
   }, []);
 
@@ -36,6 +37,7 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
     const init = async () => {
       await Utils.wait(2000 + Math.floor(Math.random() * 3000));
       setLoading(false);
+      setState({ shape: initShape, side: initSide })
     }
     init();
   }, []);
@@ -50,8 +52,11 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   }
 
   const handleUserInput = (side: Sides) => {
+    if (!state) {
+      return;
+    }
     setUserSide(side);
-    if (state.side === side) {
+    if (state?.side === side) {
       setScore(score + 1);
       setMessage('Greate!');
     } else {
@@ -87,7 +92,8 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   return <div ref={ref} tabIndex={0} style={{ height: '100%' }}  
     onKeyDown={({ key }) => handleKeyDown(key)}>
     <div style={{ margin: '3rem' }}>User name: {name}</div>
-    <div>
+    {
+      state && <div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <div style={{ width: '200px' }}>
         <Shape hide={state.side === Sides.RIGHT} shape={state.shape}/>
@@ -99,9 +105,11 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
       </div>
       
     </div>
-    <h1>{ indicator === 1  ? 'You can play' : '' }</h1>
-    <div>{message}</div>
-    <div>Score: {score}</div>
+    }
+    <h2 style={{ opacity: indicator === 1 ? 1 : 0 }}>You can play</h2>
+    <div style={{ padding: '1rem' }}>Score: {score}</div>
+    <div >{message}</div>
+
   </div>
 }
 
