@@ -10,8 +10,8 @@ const getRandomeSide = () => {
   return sides[index];
 }
 
-async function updateUserScore(name: string) {
-  const res = await fetch('http://localhost:4000/score/' + name);
+async function updateUserScore(name: string, score: number) {
+  const res = await fetch('http://localhost:4000/score?name=' + name + '&score=' + score);
   return res.json();
 }
 
@@ -21,15 +21,14 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   const [message, setMessage] = useState('');
   const [score, setScore] = useState(0);
   const [userSide, setUserSide] = useState<Sides | undefined>();
-  const [indicator, setIndicator] = useState<0 | 1 | 2>(1);
+  const [indicator, setIndicator] = useState<0 | 1 | 2>(0);
   const initShape = getRandomShape();
   const initSide = getRandomeSide();
-  const [state, setState] = useState<{ shape: GameShapes, side: Sides }>();
+  const [state, setState] = useState<{ shape: GameShapes, side: Sides }>({ shape: initShape, side: initSide });
 
   const updateIndicator = useCallback(async () => {
-    console.log('update indicator');
     setIndicator(1);
-    await Utils.wait(3000);
+    await Utils.wait(2000);
     setIndicator(2);
   }, []);
 
@@ -37,17 +36,24 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
     const init = async () => {
       await Utils.wait(2000 + Math.floor(Math.random() * 3000));
       setLoading(false);
-      setState({ shape: initShape, side: initSide })
     }
     init();
   }, []);
 
   useEffect(() => {
-    updateIndicator();
-  }, [state, updateIndicator]);
+    if (!loading) {
+      updateIndicator();
+    }
+  }, [state, loading, updateIndicator]);
+
+  useEffect(() => {
+    updateUserScore(name, score);
+  }, [score, name]);
 
   const next = () => {
-    setMessage('');
+    setMessage(() => '');
+    setUserSide(() => undefined);
+    setIndicator(() => 0);
     setState(() => ({ side: getRandomeSide(), shape: getRandomShape() }));
   }
 
@@ -72,9 +78,9 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
       return setMessage('Too Soon');
     }
     if(indicator === 2) {
-      if (userSide !== undefined) {
-        return next();
-      }
+      setTimeout(() => {
+        next();
+      }, 3000);
       return setMessage('Too Late');
     }
     if (userSide !== undefined) {
