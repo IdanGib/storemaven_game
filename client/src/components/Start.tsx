@@ -11,7 +11,8 @@ const getRandomeSide = () => {
 }
 
 async function updateUserScore(name: string, score: number) {
-  const res = await fetch('http://localhost:4000/score?name=' + name + '&score=' + score);
+  const url = 'http://localhost:4000/score?name=' + name + '&score=' + score;
+  const res = await fetch(url);
   return res.json();
 }
 
@@ -20,6 +21,7 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
   const [score, setScore] = useState(0);
+  const [indicationMessage, setIndicationMessage] = useState('');
   const [userSide, setUserSide] = useState<Sides | undefined>();
   const [indicator, setIndicator] = useState<0 | 1 | 2>(0);
   const initShape = getRandomShape();
@@ -36,9 +38,10 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
     const init = async () => {
       await Utils.wait(2000 + Math.floor(Math.random() * 3000));
       setLoading(false);
+      updateIndicator();
     }
     init();
-  }, []);
+  }, [updateIndicator]);
 
   useEffect(() => {
     if (!name) {
@@ -48,6 +51,7 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   }, [score, name]);
 
   const next = () => {
+    setIndicationMessage(() => '');
     setMessage(() => '');
     setUserSide(() => undefined);
     setIndicator(() => 0);
@@ -113,7 +117,7 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
     <h2 style={{ opacity: indicator === 1 ? 1 : 0 }}>You can play</h2>
     <div style={{ padding: '1rem' }}>Score: {score}</div>
     <div >{message}</div>
-
+    <div style={{ margin: '1rem', fontStyle: 'italic', fontWeight: 'bold' }}>{indicationMessage}</div>
   </div>
 }
 

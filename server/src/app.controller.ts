@@ -28,5 +28,6 @@ export class AppController {
     @Query('name') name: string,
   ) {
     this.appService.setPlayerScore(name, score);
+    return { name, score };
   }
 }
