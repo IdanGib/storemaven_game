@@ -1,0 +1,2 @@
+run in terminal
+chmod +x run.sh setup.sh
