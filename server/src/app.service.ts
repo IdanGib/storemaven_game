@@ -4,7 +4,10 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   private _scores = {};
   setPlayerScore(name: string, score: number) {
-    this._scores[name] = score;
+    if (!this._scores[name]) {
+      this._scores[name] = 0;
+    }
+    this._scores[name] += score;
   }
   get scores() {
     return Object.keys(this._scores).map((s) => ({
