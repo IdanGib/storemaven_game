@@ -13,7 +13,7 @@ const Game: FunctionComponent = () => {
     return <Welcome onDone={handelWelcomeDone}/>
   }
   if (phase === 1) {
-    return <Start/>
+    return <Start name={name}/>
   }
   return <>Error</>
 }
