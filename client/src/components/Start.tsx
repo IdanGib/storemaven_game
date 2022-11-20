@@ -41,12 +41,6 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   }, []);
 
   useEffect(() => {
-    if (!loading) {
-      updateIndicator();
-    }
-  }, [state, loading, updateIndicator]);
-
-  useEffect(() => {
     if (!name) {
       return;
     }
@@ -58,6 +52,7 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
     setUserSide(() => undefined);
     setIndicator(() => 0);
     setState(() => ({ side: getRandomeSide(), shape: getRandomShape() }));
+    updateIndicator();
   }
 
   const handleUserInput = (side: Sides) => {
@@ -74,16 +69,16 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   }
 
   const handleKeyDown = (key: string) => {
-    if (key !== 'a' && key !== 'l') {
+    if (key !== 'a' && key !== 'l' && key !== ' ') {
       return setMessage('Wrong Key');
     }
     if (indicator === 0) {
       return setMessage('Too Soon');
     }
     if(indicator === 2) {
-      setTimeout(() => {
+      if (key === ' ') {
         next();
-      }, 3000);
+      }
       return setMessage('Too Late');
     }
     if (userSide !== undefined) {
