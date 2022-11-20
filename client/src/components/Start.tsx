@@ -47,6 +47,9 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
   }, [state, loading, updateIndicator]);
 
   useEffect(() => {
+    if (!name) {
+      return;
+    }
     updateUserScore(name, score);
   }, [score, name]);
 
