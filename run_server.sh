@@ -1,2 +1,2 @@
 #!/bin/sh
-cd ./server && npm run start:dev
+cd ./server && npm install && npm start
