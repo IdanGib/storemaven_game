@@ -52,7 +52,16 @@ const Start: FunctionComponent<{ name: string }> = ({ name }) => {
       onPlay={handelplay} 
       shape={getRandomShape()} 
       side={randSide()}/>
-    <div style={{ margin: '1rem' }} ref={messageRef}></div>
+    <div style={{ 
+        margin: '1rem', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        fontSize: '1.5rem', 
+        height: '64px',
+        fontWeight: 'bold'}} >
+      <div ref={messageRef}></div>
+    </div>
     <div>Progress: {progress}</div>
   </div>
 }

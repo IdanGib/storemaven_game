@@ -48,18 +48,18 @@ const Display: FunctionComponent<{ progress: number,
       t1 && clearTimeout(t1);
     }
   }, [progress]);
-  return <div  style={{ outline: 'none' }} tabIndex={-1} ref={ref} onKeyDown={({key}) => handelInput(key)}>
+  return <div  style={{ outline: 'none', height: '400px' }} tabIndex={-1} ref={ref} onKeyDown={({key}) => handelInput(key)}>
    { state === 'loading' ? <h1>Loading...</h1> : <div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ width: '200px' }}>
-          <Shape hide={side === 'r'} shape={shape}/>
+        <div style={{ width: '300px' }}>
+          <Shape size={200} hide={side === 'r'} shape={shape}/>
         </div>
         <div style={{ background: 'black', width: '1px', height: '100px', margin: '16px' }}></div>
-        <div style={{ width: '200px' }}>
-          <Shape hide={side === 'l'} shape={shape}/>
+        <div style={{ width: '300px' }}>
+          <Shape size={200} hide={side === 'l'} shape={shape}/>
         </div>
       </div>
-      <div style={{ padding: '1rem', fontWeight: 'bold' }}>{ state === 'active' ? 'Can play' : '' }</div>
+      <div style={{ padding: '1rem', fontWeight: 'bold', height: '36px', color: 'green' }}>{ state === 'active' ? 'Can play' : '' }</div>
     </div>}
   </div>
 };
