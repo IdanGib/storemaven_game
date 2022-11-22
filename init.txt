@@ -1,2 +1,2 @@
 run in terminal
-chmod +x run_client.sh run_server.sh
+chmod +x run.sh

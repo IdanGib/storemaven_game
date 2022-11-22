@@ -2,6 +2,19 @@ import { FunctionComponent, useCallback, useEffect, useRef, useState } from "rea
 import Shape, { GameShapes } from "./Shape";
 export type DisplayState = 'loading' | 'active' | 'finish';
 export type Sides = 'r' | 'l';
+const getIndicatorStyleFor = (state: DisplayState): React.CSSProperties => {
+  if (state === 'active') {
+    return {
+      boxShadow: `0 0 24px green`
+    }
+  }
+  if (state ===  'finish') {
+    return {
+      boxShadow: `0 0 0 2px red`
+    };
+  }
+  return {}
+}
 const Display: FunctionComponent<{ progress: number, 
   onPlay: (success: boolean, state: DisplayState,message: string) => void, 
   shape: GameShapes, side: 'l' | 'r' }> = ({
@@ -47,10 +60,24 @@ const Display: FunctionComponent<{ progress: number,
       t2 && clearTimeout(t2);
       t1 && clearTimeout(t1);
     }
-  }, [progress]);
-  return <div  style={{ outline: 'none', height: '400px' }} tabIndex={-1} ref={ref} onKeyDown={({key}) => handelInput(key)}>
+  }, [progress, onPlay]);
+  return <div  style={{ 
+      outline: 'none', height: '400px', 
+      display: 'flex',
+      flexWrap: 'wrap', 
+      justifyContent: 'center', 
+      alignItems: 'center' }} 
+      tabIndex={-1} ref={ref} 
+      onKeyDown={({key}) => handelInput(key)}>
    { state === 'loading' ? <h1>Loading...</h1> : <div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ 
+        display: 'flex', justifyContent: 'center', 
+        alignItems: 'center', 
+        padding: '2rem',
+        borderRadius: '16px', 
+        transition: 'box-shadow 0.2s',
+        ...getIndicatorStyleFor(state)
+         }}>
         <div style={{ width: '300px' }}>
           <Shape size={200} hide={side === 'r'} shape={shape}/>
         </div>
@@ -59,7 +86,12 @@ const Display: FunctionComponent<{ progress: number,
           <Shape size={200} hide={side === 'l'} shape={shape}/>
         </div>
       </div>
-      <div style={{ padding: '1rem', fontWeight: 'bold', height: '36px', color: 'green' }}>{ state === 'active' ? 'Can play' : '' }</div>
+      <div style={{ 
+        padding: '1rem', 
+        marginTop: '16px', 
+        fontWeight: 'bold', 
+        height: '36px', 
+        color: 'green' }}>{ state === 'active' ? 'Choose Side!' : '' }</div>
     </div>}
   </div>
 };
