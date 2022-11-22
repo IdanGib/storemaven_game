@@ -1,2 +1,0 @@
-run in terminal
-chmod +x run.sh
