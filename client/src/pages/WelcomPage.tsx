@@ -3,7 +3,7 @@ import { memo } from "react";
 import UserForm from "../parts/UserForm";
 
 const WelcompPage = memo(() => {
-  return <Container>
+  return <Container centerContent>
     <Heading>Welcome</Heading>
     <UserForm/>
   </Container>

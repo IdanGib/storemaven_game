@@ -9,15 +9,13 @@ export interface GameProps {
 }
 const Game: FunctionComponent<GameProps> = memo(({ name = 'Unknonw' }) => {
   const activetime = config.activeTime;
-  const [level, setLevel] = useState(0);
   const handelFinish = () => {
-    setLevel(level + 1);
+    console.log('handel finish');
   }
   return <Container>
     <PlayerInfo name={name}/>
     <Board 
       activeTime={activetime} 
-      level={level} 
       onFinish={handelFinish}/>
   </Container>
 });

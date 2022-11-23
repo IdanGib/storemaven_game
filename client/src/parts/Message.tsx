@@ -5,7 +5,7 @@ export interface MessageProps {
   text: string;
 }
 const Message: FunctionComponent<MessageProps> = memo(({ text }) => {
-  return <Container>
+  return <Container centerContent>
     <Heading>{ text }</Heading>
   </Container>;
 });
