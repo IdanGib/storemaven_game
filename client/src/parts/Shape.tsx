@@ -1,7 +1,11 @@
-import { Image } from "@chakra-ui/react";
+import { Image, Text } from "@chakra-ui/react";
 import { FunctionComponent, memo } from "react";
-export interface ShapeProps {}
-const Shape: FunctionComponent<ShapeProps> = memo(() => {
-  return <Image src=''/>
+import { Shapes } from "../utils/constants";
+export interface ShapeProps {
+  shape: Shapes;
+  hide?: boolean;
+}
+const Shape: FunctionComponent<ShapeProps> = memo(({ shape, hide}) => {
+  return <Text hidden={hide}>{shape}</Text>
 });
 export default Shape;
