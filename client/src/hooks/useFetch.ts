@@ -16,7 +16,7 @@ export function useFetchJson<T>(url: string, errMsg = defaultErrMsg) {
     } finally {
       ref.current && setLoading(false);
     }
-  }, []);
+  }, [errMsg]);
   useEffect(() => {
     fetchJson(url);
   }, [url, fetchJson]);
