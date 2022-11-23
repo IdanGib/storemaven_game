@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 const defaultErrMsg = 'something went wrong';
-export function useFetchJson<T>(url: string, errMsg = defaultErrMsg) {
+export function useFetchJson<T>(url: string, errMsg = defaultErrMsg): [boolean, string, T | undefined] {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState('');
-  const [data, setData] = useState(true);
+  const [data, setData] = useState<T>();
   const ref = useRef<T>(null);
   const fetchJson = useCallback(async (url: string) => {
     try {

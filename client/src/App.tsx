@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { routes } from "./routes";
+import { routes } from "./utils/routes";
 const router = createBrowserRouter(routes);
 
 export const App = () => (

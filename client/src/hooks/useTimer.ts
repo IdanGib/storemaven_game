@@ -1,8 +1,13 @@
 import { useRef, useState } from "react";
-export type TimerState = 'start' | 'end' | 'idle';
-export function useTimer(time: number) {
+export enum TimerStates {
+  START = 'start',
+  END = 'end',
+  IDLE = 'idle'
+}
+
+export function useTimer(time: number): [TimerStates, () => void, () => void] {
   const ref = useRef<NodeJS.Timeout>();
-  const [state, setState] = useState<TimerState>('idle');
+  const [state, setState] = useState<TimerStates>(TimerStates.IDLE);
 
   const resetTimer = () => {
     const timer = ref.current;
@@ -11,12 +16,10 @@ export function useTimer(time: number) {
 
   const startTimer = () => {
     resetTimer();
-    setState('start');
-    if (ref.current) {
-      ref.current = setTimeout(() => { 
-        setState('end') 
-      }, time);
-    }
+    setState(TimerStates.START);
+    ref.current = setTimeout(() => { 
+      setState(TimerStates.END) 
+    }, time);
   }
   return [state, startTimer, resetTimer];
 }

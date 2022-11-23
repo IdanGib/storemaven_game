@@ -1,10 +1,12 @@
 import { Container, Heading } from "@chakra-ui/react";
 import { FunctionComponent, memo } from "react";
 
-export interface MessageProps {}
-const Message: FunctionComponent<MessageProps> = memo(() => {
+export interface MessageProps {
+  text: string;
+}
+const Message: FunctionComponent<MessageProps> = memo(({ text }) => {
   return <Container>
-    <Heading>Message</Heading>
+    <Heading>{ text }</Heading>
   </Container>;
 });
 export default Message;

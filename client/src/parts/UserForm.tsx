@@ -6,7 +6,7 @@ const UserForm: FunctionComponent<UserFormProps> = memo(() => {
   const [name, setName] = useState('');
   const nav = useNavigate();
   const handelStart = (name: string) => {
-    nav(`/game?name=${name}`)
+    nav(`/game/${name}`)
   }
   const handleKeyDown = (key: string) => {
     if (name && key === 'Enter') {
