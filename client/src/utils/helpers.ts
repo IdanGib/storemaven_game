@@ -11,6 +11,10 @@ export function random(min: number, max: number) {
   return min + diff;
 }
 
+export function getRandomSide() {
+  return sidesKeyboard[random(0, sidesKeyboard.length)];
+}
+
 export function getRandomShape() {
   return shapesList[random(0, shapesList.length)];
 }

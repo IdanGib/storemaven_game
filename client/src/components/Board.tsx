@@ -1,12 +1,12 @@
 import { Container, Spinner, VStack } from "@chakra-ui/react";
-import { FunctionComponent, memo, useEffect } from "react";
+import { FunctionComponent, memo, useEffect, useRef } from "react";
 import { useFakeRandomLoader } from "../hooks/useFakeRandomLoader";
 import { useKeyDown } from "../hooks/useKeyDown";
 import { useTimer } from "../hooks/useTimer";
 import Indicator from "../parts/Indicator";
-import { SidesKeyboard, TimerStates } from "../utils/constants";
-import { getKeyboardMessages, getTimingMessages } from "../utils/helpers";
-import ShapesDisplay, { Sides } from "./ShapesDisplay";
+import { BoardSuccessMessages, SidesKeyboard, TimerStates } from "../utils/constants";
+import { getKeyboardMessages, getRandomSide, getTimingMessages } from "../utils/helpers";
+import ShapesDisplay from "./ShapesDisplay";
 export interface BoardResult {
   success: boolean;
   message?: string;
@@ -21,6 +21,7 @@ const Board: FunctionComponent<BoardProps> = memo(({
 }) => {
   const loading = useFakeRandomLoader();
   const [timer, startTimer]  = useTimer(activeTime);
+  const sideRef = useRef<SidesKeyboard>(getRandomSide());
   useEffect(() => {
     if (!loading) {
       startTimer();
@@ -29,8 +30,8 @@ const Board: FunctionComponent<BoardProps> = memo(({
   }, [loading]);
 
   useKeyDown(({ key }) => {
-    let success = false;
-    const message = 
+    let success = (key === sideRef.current);
+    const message = success ? BoardSuccessMessages.CORRECT_SIDE : 
       getKeyboardMessages(key as SidesKeyboard) || 
       getTimingMessages(timer);
     onResult({ message, success });
@@ -38,10 +39,10 @@ const Board: FunctionComponent<BoardProps> = memo(({
 
   return <Container>
     <VStack hidden={loading} spacing='8'>
+      <ShapesDisplay side={sideRef.current}/>
       <Indicator 
         active={timer === TimerStates.START}
         activeText={activeText}/>
-      <ShapesDisplay side={Sides.LEFT}/>
     </VStack>
     <Spinner hidden={!loading}/>
   </Container>;
