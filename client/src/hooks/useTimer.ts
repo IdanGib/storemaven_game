@@ -1,10 +1,5 @@
 import { useRef, useState } from "react";
-export enum TimerStates {
-  START = 'start',
-  END = 'end',
-  IDLE = 'idle'
-}
-
+import { TimerStates } from "../utils/constants";
 export function useTimer(time: number): [TimerStates, () => void, () => void] {
   const ref = useRef<NodeJS.Timeout>();
   const [state, setState] = useState<TimerStates>(TimerStates.IDLE);

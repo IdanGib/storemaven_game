@@ -1,4 +1,10 @@
-import { shapesList } from "./constants";
+import { 
+  BoardFailMessages, 
+  shapesList, 
+  SidesKeyboard, 
+  sidesKeyboard,
+  TimerStates 
+} from "./constants";
 
 export function random(min: number, max: number) {
   const diff = Math.floor(Math.random() * (max - min));
@@ -7,4 +13,18 @@ export function random(min: number, max: number) {
 
 export function getRandomShape() {
   return shapesList[random(0, shapesList.length)];
+}
+
+export function getKeyboardMessages(key: SidesKeyboard) {
+  if (!sidesKeyboard.includes(key)) {
+    return BoardFailMessages.WRONG_KEY;
+  }
+}
+export function getTimingMessages(timerState: TimerStates) {
+  if (timerState === TimerStates.IDLE) {
+    return BoardFailMessages.TO_SOON;
+  }
+  if (timerState === TimerStates.END) {
+    return BoardFailMessages.TOO_LATE;
+  }
 }

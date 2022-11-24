@@ -1,19 +1,25 @@
 import { Container, Spinner, VStack } from "@chakra-ui/react";
-import { FunctionComponent, memo, useEffect, useState } from "react";
+import { FunctionComponent, memo, useEffect } from "react";
 import { useFakeRandomLoader } from "../hooks/useFakeRandomLoader";
 import { useKeyDown } from "../hooks/useKeyDown";
-import { TimerStates, useTimer } from "../hooks/useTimer";
+import { useTimer } from "../hooks/useTimer";
 import Indicator from "../parts/Indicator";
-import Message from "../parts/Message";
-import { BoardFailMessages } from "../utils/constants";
+import { SidesKeyboard, TimerStates } from "../utils/constants";
+import { getKeyboardMessages, getTimingMessages } from "../utils/helpers";
 import ShapesDisplay, { Sides } from "./ShapesDisplay";
+export interface BoardResult {
+  success: boolean;
+  message?: string;
+}
 export interface BoardProps {
   activeTime: number;
-  onFinish: () => void;
+  activeText: string;
+  onResult: (result: BoardResult) => void;
 }
-const Board: FunctionComponent<BoardProps> = memo(({ activeTime, onFinish }) => {
+const Board: FunctionComponent<BoardProps> = memo(({ 
+  activeTime, onResult, activeText
+}) => {
   const loading = useFakeRandomLoader();
-  const [message, setMessage] = useState('');
   const [timer, startTimer]  = useTimer(activeTime);
   useEffect(() => {
     if (!loading) {
@@ -21,26 +27,21 @@ const Board: FunctionComponent<BoardProps> = memo(({ activeTime, onFinish }) => 
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
+
   useKeyDown(({ key }) => {
-    if (!['a', 'l'].includes(key)) {
-      setMessage(BoardFailMessages.WRONG_KEY);
-    } else if (loading) {
-      setMessage(BoardFailMessages.TO_SOON);
-    } else if (timer === TimerStates.END) {
-      setMessage(BoardFailMessages.TOO_LATE);
-    }
-    if (timer === TimerStates.END) {
-      onFinish();
-    }
+    let success = false;
+    const message = 
+      getKeyboardMessages(key as SidesKeyboard) || 
+      getTimingMessages(timer);
+    onResult({ message, success });
   });
 
   return <Container>
     <VStack hidden={loading} spacing='8'>
       <Indicator 
         active={timer === TimerStates.START}
-        activeText='Choose Side!'/>
+        activeText={activeText}/>
       <ShapesDisplay side={Sides.LEFT}/>
-      <Message text={message} />
     </VStack>
     <Spinner hidden={!loading}/>
   </Container>;

@@ -8,7 +8,7 @@ export enum BoardFailMessages {
   TO_SOON = 'Too soon'
 }
 
-export enum SuccessMessages {
+export enum BoardSuccessMessages {
   CORRECT_SIDE = 'Good Job!'
 }
 
@@ -17,5 +17,10 @@ export enum Shapes {
   SQUARE = 'square',
   CIRCEL = 'circle'
 }
-
+export enum TimerStates {
+  START = 'start',
+  END = 'end',
+  IDLE = 'idle'
+}
 export const shapesList = Object.values(Shapes);
+export const sidesKeyboard = Object.values(SidesKeyboard);

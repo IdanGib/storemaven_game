@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 const defaultErrMsg = 'something went wrong';
-export function useFetchJson<T>(url: string, errMsg = defaultErrMsg): [boolean, string, T | undefined] {
+export function useFetchJson<T>(
+  url: string, errMsg = defaultErrMsg
+): [boolean, string, T | undefined] {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState('');
   const [data, setData] = useState<T>();
-  const ref = useRef<T>(null);
+  const ref = useRef<boolean>(true);
   const fetchJson = useCallback(async (url: string) => {
     try {
       const res = await fetch(url);
       const json = await res.json();
       ref.current && setData(json);
     } catch (e) {
-      console.error(e);
       ref.current && setErr(errMsg);
     } finally {
       ref.current && setLoading(false);
@@ -19,6 +20,9 @@ export function useFetchJson<T>(url: string, errMsg = defaultErrMsg): [boolean, 
   }, [errMsg]);
   useEffect(() => {
     fetchJson(url);
+    return () => { 
+      ref.current = false 
+    }
   }, [url, fetchJson]);
   return [loading, err, data];
 }
