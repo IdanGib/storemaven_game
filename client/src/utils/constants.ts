@@ -2,10 +2,17 @@ export enum SidesKeyboard {
   LEFT = 'a',
   RIGHT = 'l'
 }
+
 export enum BoardFailMessages {
   TOO_LATE = 'Too Late',
   WRONG_KEY = 'Wrong key',
   TO_SOON = 'Too soon'
+}
+
+export interface GameConfig {
+  activeTime: number;
+  activeText: string;
+  boardSize: number;
 }
 
 export enum BoardSuccessMessages {

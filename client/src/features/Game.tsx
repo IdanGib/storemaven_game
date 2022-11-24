@@ -1,21 +1,24 @@
 import { Box, Container } from "@chakra-ui/react";
-import { FunctionComponent, memo, useState } from "react";
+import { FunctionComponent, memo, useEffect, useState } from "react";
 import { IncrementUserScore } from "../api/api";
 import { scoreUrl } from "../api/constants";
 import Board, { BoardResult } from "../components/Board";
 import PlayerInfo from "../components/PlayerInfo";
 import { useToastMessage } from "../hooks/useToastMessage";
-import config from '../utils/game-config.json';
+import { GameConfig } from "../utils/constants";
 
 export interface GameProps {
   name?: string;
+  config: GameConfig;
 }
-const Game: FunctionComponent<GameProps> = memo(({ name = 'Unknonw' }) => {
+const Game: FunctionComponent<GameProps> = memo(({ 
+  name = 'Unknonw', 
+  config: { activeText, boardSize, activeTime } }) => {
   const toast = useToastMessage();
-  const [reset, setReset] = useState(false);
-  const activetime = config.activeTime;
-  const activeText = config.activeText;
-  const boardSize = config.boardSize;
+  const [reset, setReset] = useState(true);
+  useEffect(() => {
+    setReset(false);
+  }, []);
   const handleResult = ({ success, message }: BoardResult) => {
     toast({ success, message });
     if (success) {
@@ -36,7 +39,7 @@ const Game: FunctionComponent<GameProps> = memo(({ name = 'Unknonw' }) => {
         size={boardSize}
         scoreUrl={`${scoreUrl}/${name}`}
         activeText={activeText}
-        activeTime={activetime} 
+        activeTime={activeTime} 
         onResult={handleResult}/>
     }
   </Container>

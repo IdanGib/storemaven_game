@@ -1,4 +1,4 @@
-import { Container, HStack, Link, Spacer } from "@chakra-ui/react";
+import { CloseButton, Container, HStack, Link, Spacer } from "@chakra-ui/react";
 import { FunctionComponent, memo } from "react";
 import { dashboardUrl } from "../api/constants";
 import UserName from "../parts/UserName";
@@ -16,9 +16,10 @@ const PlayerInfo: FunctionComponent<PlayerInfoProps> = memo(({ name }) => {
           href={dashboardUrl} 
           target='_blank'>Dashboard</Link>
         <Link 
-          fontSize='sm' 
-          href={'/'} 
-          target='_blank'>Back</Link>
+          fontSize='sm'
+          href={'/'}>
+            <CloseButton/>
+          </Link>
     </HStack>
   </Container>;
 });
