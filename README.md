@@ -1,4 +1,5 @@
 # How To run the project
+### Node v16
 ## Client
 ### run in root directory `cd ./client && npm install && npm start`
 ## Server
