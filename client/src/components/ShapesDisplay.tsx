@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { FunctionComponent, memo } from "react";
 import DisplaySide from "../parts/DisplaySide";
 import { getRandomShape } from "../utils/helpers";
@@ -10,19 +10,20 @@ export interface ShapesDisplayProps {
   side: Sides;
   size?: number;
 }
-const ShapesDisplay: FunctionComponent<ShapesDisplayProps> = memo(({ side, size = 400 }) => {
-  const hs = size / 2;
+const ShapesDisplay: FunctionComponent<ShapesDisplayProps> = memo(({ 
+  side, size = 400 
+}) => {
   const shape = getRandomShape();
-  return <Flex height={`${hs}px`} width={`${size}px`}>
+  return <HStack spacing='4'>
     <DisplaySide 
-      size={hs} 
+      size={size} 
       hideContent={side === Sides.LEFT} 
       shape={shape} />
     <DisplaySide 
-      size={hs} 
+      size={size} 
       hideContent={side === Sides.RIGHT} 
       shape={shape}/>
-  </Flex>
+  </HStack>
 });
 
 export default ShapesDisplay;

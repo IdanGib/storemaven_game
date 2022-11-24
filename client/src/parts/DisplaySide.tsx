@@ -14,7 +14,10 @@ const DisplaySide: FunctionComponent<DisplaySideProps> = ({ size, hideContent, s
     justifyContent='center'
     alignItems='center'
     width={`${size}px`}>
-    <Shape shape={shape} hide={hideContent}/>
+    <Shape 
+      shape={shape} 
+      size={size}
+      hide={hideContent}/>
   </Flex>
 }
 export default DisplaySide;
