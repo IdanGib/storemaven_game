@@ -10,7 +10,6 @@ export interface PlayerInfoProps {
 }
 const PlayerInfo: FunctionComponent<PlayerInfoProps> = memo(({ name }) => {
   const [loading, err, data] = useFetchJson<ScoreResponse>(getScoreUrl);
-  console.log({ loading });
   return <Container>
     <HStack spacing={8}>
         <Link href={dashboardUrl} target='_blank'>Dashboard</Link>
