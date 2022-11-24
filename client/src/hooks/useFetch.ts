@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const defaultErrMsg = 'something went wrong';
 export function useFetchJson<T>(
   url: string, errMsg = defaultErrMsg
-): [boolean, string, T | undefined] {
+): [ T | undefined, boolean, string] {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState('');
   const [data, setData] = useState<T>();
@@ -24,5 +24,5 @@ export function useFetchJson<T>(
       ref.current = false 
     }
   }, [url, fetchJson]);
-  return [loading, err, data];
+  return [data, loading, err];
 }

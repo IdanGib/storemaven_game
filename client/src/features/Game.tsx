@@ -1,5 +1,5 @@
-import { Container } from "@chakra-ui/react";
-import { FunctionComponent, memo } from "react";
+import { Box, Container } from "@chakra-ui/react";
+import { FunctionComponent, memo, useEffect, useState } from "react";
 import { IncrementUserScoore } from "../api/api";
 import Board, { BoardResult } from "../components/Board";
 import PlayerInfo from "../components/PlayerInfo";
@@ -11,20 +11,34 @@ export interface GameProps {
 }
 const Game: FunctionComponent<GameProps> = memo(({ name = 'Unknonw' }) => {
   const toast = useToastMessage();
+  const [boardDisabled, setBoardDisabled] = useState(false);
   const activetime = config.activeTime;
   const activeText = config.activeText;
+  const boardSize = config.boardSize;
+  useEffect(() => {
+    if (boardDisabled) {
+      setBoardDisabled(false);
+    }
+  }, [boardDisabled]);
   const handleResult = ({ success, message }: BoardResult) => {
     toast({ success, message });
     if (success) {
       IncrementUserScoore(name, 1);
     }
+    setBoardDisabled(true);
   }
   return <Container>
-    <PlayerInfo name={name}/>
-    <Board 
-      activeText={activeText}
-      activeTime={activetime} 
-      onResult={handleResult}/>
+    <Box my='8'>
+      <PlayerInfo name={name}/>
+    </Box>
+    { 
+      !boardDisabled && 
+      <Board 
+        size={boardSize}
+        activeText={activeText}
+        activeTime={activetime} 
+        onResult={handleResult}/>
+    }
   </Container>
 });
 

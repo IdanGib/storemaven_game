@@ -1,4 +1,5 @@
 {
   "activeTime": 3000,
-  "activeText": "Choose Side!"
+  "activeText": "Choose Side!",
+  "boardSize": 300
 }
