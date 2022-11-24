@@ -15,6 +15,10 @@ const PlayerInfo: FunctionComponent<PlayerInfoProps> = memo(({ name }) => {
           fontSize='sm' 
           href={dashboardUrl} 
           target='_blank'>Dashboard</Link>
+        <Link 
+          fontSize='sm' 
+          href={'/'} 
+          target='_blank'>Back</Link>
     </HStack>
   </Container>;
 });

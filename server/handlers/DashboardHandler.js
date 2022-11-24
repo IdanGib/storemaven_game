@@ -24,7 +24,7 @@ const html = (socres) => {
 }
 async function DashboardHandler() {
   const scores = await KeyValueDb.getItem(ScoresKey);
-  const sorted = (scores || []).sort((s1, s2) => s1.score - s2.score);
+  const sorted = (scores || []).sort((s1, s2) => s2.score - s1.score);
   return html(sorted);
 }
 
