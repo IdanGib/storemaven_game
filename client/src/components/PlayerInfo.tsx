@@ -9,9 +9,12 @@ export interface PlayerInfoProps {
 const PlayerInfo: FunctionComponent<PlayerInfoProps> = memo(({ name }) => {
   return <Container>
     <HStack spacing={8}>
-        <Link fontSize='sm' href={dashboardUrl} target='_blank'>Dashboard</Link>
-        <Spacer/>
         <UserName name={name}/>
+        <Spacer/>
+        <Link 
+          fontSize='sm' 
+          href={dashboardUrl} 
+          target='_blank'>Dashboard</Link>
     </HStack>
   </Container>;
 });

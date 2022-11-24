@@ -1,6 +1,6 @@
 export interface IncementResponse {}
 export interface ScoreResponse {
-  score: number;
+  result: { id: string, score: number }
 }
 
 export interface IncementRequest {}

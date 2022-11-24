@@ -1,6 +1,7 @@
 import { Box, Container } from "@chakra-ui/react";
 import { FunctionComponent, memo, useEffect, useState } from "react";
-import { IncrementUserScoore } from "../api/api";
+import { IncrementUserScore } from "../api/api";
+import { scoreUrl } from "../api/constants";
 import Board, { BoardResult } from "../components/Board";
 import PlayerInfo from "../components/PlayerInfo";
 import { useToastMessage } from "../hooks/useToastMessage";
@@ -23,7 +24,7 @@ const Game: FunctionComponent<GameProps> = memo(({ name = 'Unknonw' }) => {
   const handleResult = ({ success, message }: BoardResult) => {
     toast({ success, message });
     if (success) {
-      IncrementUserScoore(name, 1);
+      IncrementUserScore(name, 1);
     }
     setBoardDisabled(true);
   }
@@ -35,6 +36,7 @@ const Game: FunctionComponent<GameProps> = memo(({ name = 'Unknonw' }) => {
       !boardDisabled && 
       <Board 
         size={boardSize}
+        scoreUrl={`${scoreUrl}/${name}`}
         activeText={activeText}
         activeTime={activetime} 
         onResult={handleResult}/>

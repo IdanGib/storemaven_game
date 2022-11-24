@@ -1,12 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const { DashboardHandler } = require('./handlers/DashboardHandler');
 const { getUserScoreHandler } = require('./handlers/getUserScoreHandler');
 const { IncrementUserScoreHandler } = require('./handlers/IncrementUserScoreHandler');
 const app = express();
 const port = 4000;
+app.use(cors());
 app.get('/dashboard', async (req, res) => {
   const result = await DashboardHandler();
-  console.log(result);
   res.send(result);
 });
 

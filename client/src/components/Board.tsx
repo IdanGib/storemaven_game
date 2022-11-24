@@ -1,6 +1,5 @@
 import { Container, Spinner, VStack } from "@chakra-ui/react";
 import { FunctionComponent, memo, useEffect, useRef } from "react";
-import { getScoreUrl } from "../api/constants";
 import { ScoreResponse } from "../api/interfaces";
 import { useFakeRandomLoader } from "../hooks/useFakeRandomLoader";
 import { useFetchJson } from "../hooks/useFetch";
@@ -19,13 +18,14 @@ export interface BoardProps {
   activeTime: number;
   activeText: string;
   size: number;
+  scoreUrl: string
   onResult: (result: BoardResult) => void;
 }
 const Board: FunctionComponent<BoardProps> = memo(({ 
-  activeTime, onResult, activeText, size
+  activeTime, onResult, activeText, size, scoreUrl
 }) => {
   const loading = useFakeRandomLoader();
-  const [scoreData] = useFetchJson<ScoreResponse>(getScoreUrl);
+  const [scoreData] = useFetchJson<ScoreResponse>(scoreUrl);
   const [timer, startTimer]  = useTimer(activeTime);
   const sideRef = useRef<SidesKeyboard>(getRandomSide());
   useEffect(() => {
@@ -51,7 +51,7 @@ const Board: FunctionComponent<BoardProps> = memo(({
   return <Container centerContent>
     <VStack hidden={loading} spacing='8'>
       <ShapesDisplay size={size} side={sideRef.current}/>
-      <Score score={scoreData?.score}/>
+      <Score score={scoreData?.result?.score}/>
       <Indicator 
         active={timer === TimerStates.START}
         activeText={activeText}/>
