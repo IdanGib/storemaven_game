@@ -30,8 +30,9 @@ const Board: FunctionComponent<BoardProps> = memo(({
   }, [loading]);
 
   useKeyDown(({ key }) => {
-    let success = (key === sideRef.current);
-    const message = success ? BoardSuccessMessages.CORRECT_SIDE : 
+    const success = (key === sideRef.current);
+    const message = success ? 
+      BoardSuccessMessages.CORRECT_SIDE : 
       getKeyboardMessages(key as SidesKeyboard) || 
       getTimingMessages(timer);
     onResult({ message, success });
