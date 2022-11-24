@@ -6,10 +6,10 @@ export function useToastMessage() {
   const toast = useToast();
   return (data: { success: boolean, message?: string }) => {
     const { success, message } = data;
+    toast.close(ref.current);
     if (!message) {
       return;
     }
-    toast.close(ref.current)
     ref.current = toast(
       {
         title: message,

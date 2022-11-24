@@ -41,7 +41,9 @@ const Board: FunctionComponent<BoardProps> = memo(({
       getKeyboardMessages(key as SidesKeyboard) || 
       getTimingMessages(timer);
 
-    if (!message) {
+    const correct = (key === sideRef.current);
+    const inTime = timer === TimerStates.START;
+    if (correct && inTime) {
       success = (key === sideRef.current);
       message = BoardSuccessMessages.CORRECT_SIDE;
     }
