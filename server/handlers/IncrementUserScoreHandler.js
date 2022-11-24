@@ -10,6 +10,7 @@ async function IncrementUserScoreHandler(id, score) {
     scores.push({ id, score });
   }
   await KeyValueDb.setItem(ScoresKey, scores);
+  return user ? user : { id, score };
 }
 module.exports = {
   IncrementUserScoreHandler

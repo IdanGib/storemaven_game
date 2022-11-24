@@ -4,21 +4,22 @@ const { getUserScoreHandler } = require('./handlers/getUserScoreHandler');
 const { IncrementUserScoreHandler } = require('./handlers/IncrementUserScoreHandler');
 const app = express();
 const port = 4000;
-app.get('/dashboard', (req, res) => {
-  const result = DashboardHandler();
+app.get('/dashboard', async (req, res) => {
+  const result = await DashboardHandler();
+  console.log(result);
   res.send(result);
 });
 
 app.get('/score/:id', async (req, res) => {
   const { id } = req.params;
   const result = await getUserScoreHandler(id);
-  res.json(result);
+  res.json({ result });
 });
 
 app.post('/score/:id/:score', async (req, res) => {
   const { id, score } = req.params;
   const result = await IncrementUserScoreHandler(id, Number(score));
-  res.json(result);
+  res.json({ result });
 });
 
 app.use('*', (req, res) => {

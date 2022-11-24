@@ -3,7 +3,10 @@ class KeyValueDb {
   static async setItem(key, value) {
     store[key] = value;
   }
-  static async getItem() {
+  static async getItem(key, defaulrVal = []) {
+    if (!store[key]) {
+      store[key] = [];
+    }
     return store[key];
   }
 } 
