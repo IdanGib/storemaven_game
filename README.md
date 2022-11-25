@@ -8,5 +8,5 @@
 
 
 # Game Urls
-- [Client Game](http://localhost:3000)
+- <a href="http://localhost:3000" target="_blank">Client Game</a>
 - [Dashboard](http://localhost:4000/dashboard)
