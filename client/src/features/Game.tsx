@@ -13,7 +13,13 @@ export interface GameProps {
 }
 const Game: FunctionComponent<GameProps> = memo(({ 
   name = 'Unknonw', 
-  config: { activeText, boardSize, activeTime } }) => {
+  config: { 
+    activeText, 
+    boardSize, 
+    activeTime, 
+    leftKey, 
+    rightKey 
+  } }) => {
   const toast = useToastMessage();
   const [reset, setReset] = useState(true);
 
@@ -40,6 +46,8 @@ const Game: FunctionComponent<GameProps> = memo(({
       !reset && 
       <Board 
         size={boardSize}
+        leftKey={leftKey}
+        rightKey={rightKey}
         scoreUrl={`${scoreUrl}/${name}`}
         activeText={activeText}
         activeTime={activeTime} 

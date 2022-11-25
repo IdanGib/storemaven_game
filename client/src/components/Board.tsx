@@ -7,7 +7,7 @@ import { useKeyDown } from "../hooks/useKeyDown";
 import { useTimer } from "../hooks/useTimer";
 import Indicator from "../parts/Indicator";
 import Score from "../parts/Score";
-import { BoardSuccessMessages, SidesKeyboard, TimerStates } from "../utils/constants";
+import { BoardSuccessMessages, TimerStates } from "../utils/constants";
 import { getKeyboardMessages, getRandomSide, getTimingMessages } from "../utils/helpers";
 import ShapesDisplay from "./ShapesDisplay";
 export interface BoardResult {
@@ -17,17 +17,19 @@ export interface BoardResult {
 export interface BoardProps {
   activeTime: number;
   activeText: string;
+  rightKey: string;
+  leftKey: string;
   size: number;
   scoreUrl: string
   onResult: (result: BoardResult) => void;
 }
 const Board: FunctionComponent<BoardProps> = memo(({ 
-  activeTime, onResult, activeText, size, scoreUrl
+  activeTime, onResult, activeText, size, scoreUrl, rightKey, leftKey
 }) => {
   const loading = useFakeRandomLoader();
   const [scoreData] = useFetchJson<ScoreResponse>(scoreUrl);
   const [timer, startTimer]  = useTimer(activeTime);
-  const sideRef = useRef<SidesKeyboard>(getRandomSide());
+  const sideRef = useRef<string>(getRandomSide([rightKey, leftKey]));
   useEffect(() => {
     if (!loading) {
       startTimer();
@@ -38,7 +40,7 @@ const Board: FunctionComponent<BoardProps> = memo(({
   useKeyDown(({ key }) => {
     let success = false;
     let message: string | undefined = 
-      getKeyboardMessages(key as SidesKeyboard) || 
+      getKeyboardMessages(key, [rightKey, leftKey]) || 
       getTimingMessages(timer);
 
     const correct = (key === sideRef.current);
@@ -55,6 +57,8 @@ const Board: FunctionComponent<BoardProps> = memo(({
       <ShapesDisplay 
         hide={loading} 
         size={size} 
+        leftKey={leftKey}
+        rightKey={rightKey}
         side={sideRef.current}/>
       <Spinner 
         size='lg'

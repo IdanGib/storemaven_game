@@ -1,15 +1,16 @@
 import { Box, HStack } from "@chakra-ui/react";
 import { FunctionComponent, memo } from "react";
 import DisplaySide from "../parts/DisplaySide";
-import { SidesKeyboard } from "../utils/constants";
 import { getRandomShape } from "../utils/helpers";
 export interface ShapesDisplayProps {
-  side: SidesKeyboard;
+  side: string;
+  rightKey: string;
+  leftKey: string;
   size?: number;
   hide?: boolean;
 }
 const ShapesDisplay: FunctionComponent<ShapesDisplayProps> = memo(({ 
-  side, size = 400, hide
+  side, size = 400, hide, rightKey, leftKey
 }) => {
   const shape = getRandomShape();
   return <HStack 
@@ -19,12 +20,12 @@ const ShapesDisplay: FunctionComponent<ShapesDisplayProps> = memo(({
       spacing='4'>
     <DisplaySide 
       size={size} 
-      hideContent={side === SidesKeyboard.RIGHT} 
+      hideContent={side === rightKey} 
       shape={shape} />
     <Box height={`${size}px`} width='1px' background='gray'></Box>
     <DisplaySide 
       size={size} 
-      hideContent={side === SidesKeyboard.LEFT} 
+      hideContent={side === leftKey} 
       shape={shape}/>
   </HStack>
 });

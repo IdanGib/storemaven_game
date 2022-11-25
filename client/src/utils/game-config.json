@@ -1,5 +1,7 @@
 {
   "activeTime": 1000,
   "activeText": "Choose Side!",
-  "boardSize": 300
+  "boardSize": 300,
+  "leftKey": "a",
+  "rightKey": "l"
 }

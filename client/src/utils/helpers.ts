@@ -1,8 +1,6 @@
 import { 
   BoardFailMessages, 
   shapesList, 
-  SidesKeyboard, 
-  sidesKeyboard,
   TimerStates 
 } from "./constants";
 
@@ -11,7 +9,7 @@ export function random(min: number, max: number) {
   return min + diff;
 }
 
-export function getRandomSide() {
+export function getRandomSide(sidesKeyboard: string[]) {
   return sidesKeyboard[random(0, sidesKeyboard.length)];
 }
 
@@ -19,7 +17,7 @@ export function getRandomShape() {
   return shapesList[random(0, shapesList.length)];
 }
 
-export function getKeyboardMessages(key: SidesKeyboard) {
+export function getKeyboardMessages(key: string, sidesKeyboard: string[]) {
   if (!sidesKeyboard.includes(key)) {
     return BoardFailMessages.WRONG_KEY;
   }

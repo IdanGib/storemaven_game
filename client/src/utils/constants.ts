@@ -1,7 +1,3 @@
-export enum SidesKeyboard {
-  LEFT = 'a',
-  RIGHT = 'l'
-}
 
 export enum BoardFailMessages {
   TOO_LATE = 'Too Late',
@@ -13,6 +9,8 @@ export interface GameConfig {
   activeTime: number;
   activeText: string;
   boardSize: number;
+  rightKey: string;
+  leftKey: string;
 }
 
 export enum BoardSuccessMessages {
@@ -29,5 +27,5 @@ export enum TimerStates {
   END = 'end',
   IDLE = 'idle'
 }
+
 export const shapesList = Object.values(Shapes);
-export const sidesKeyboard = Object.values(SidesKeyboard);
