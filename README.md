@@ -8,5 +8,5 @@
 
 
 # Game Urls
-- Game: [Client Game](http://localhost:3000)
-- Dashboard: [Dashboard](http://localhost:4000/dashboard)
+- [Client Game](http://localhost:3000)
+- [Dashboard](http://localhost:4000/dashboard)
