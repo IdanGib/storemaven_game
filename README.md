@@ -1,9 +1,11 @@
-# How To run the project
-### Node v16
-## Client
-### run in root directory `cd ./client && npm install && npm start`
-## Server
-### run in root directory `cd ./server && npm install && npm start`
+
+# Left right game
+## Requirement
+- `NodeJs v16`
+## Run
+1. In project root directory run: `chmod +x ./run.sh`
+2. Run: `./run.sh` 
+
 
 # Game Urls
 - Game: [http://localhost:3000]
