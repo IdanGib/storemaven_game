@@ -5,12 +5,15 @@ export interface ScoreProps {
   isLoading?: boolean;
   err?: string;
 }
-const Score: FunctionComponent<ScoreProps> = memo(({ score = 0, isLoading, err }) => {
+const Score: FunctionComponent<ScoreProps> = memo(({ score, isLoading, err }) => {
   if (isLoading) {
     return <Spinner/>
   }
   if (err) {
     return <Text>{err}</Text>
+  }
+  if (score === undefined) {
+    return <></>
   }
   return <Text>Score: {score}</Text>
 });

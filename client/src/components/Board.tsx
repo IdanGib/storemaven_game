@@ -51,14 +51,20 @@ const Board: FunctionComponent<BoardProps> = memo(({
   });
 
   return <Container centerContent>
-    <VStack hidden={loading} spacing='8'>
-      <ShapesDisplay size={size} side={sideRef.current}/>
+    <VStack spacing='8'>
+      <ShapesDisplay 
+        hide={loading} 
+        size={size} 
+        side={sideRef.current}/>
+      <Spinner 
+        size='lg'
+        position='absolute'
+        hidden={!loading}/>
       <Score score={scoreData?.result?.score}/>
       <Indicator 
         active={timer === TimerStates.START}
         activeText={activeText}/>
     </VStack>
-    <Spinner size='xl' hidden={!loading}/>
   </Container>;
 });
 export default Board;

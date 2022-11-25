@@ -6,12 +6,17 @@ import { getRandomShape } from "../utils/helpers";
 export interface ShapesDisplayProps {
   side: SidesKeyboard;
   size?: number;
+  hide?: boolean;
 }
 const ShapesDisplay: FunctionComponent<ShapesDisplayProps> = memo(({ 
-  side, size = 400 
+  side, size = 400, hide
 }) => {
   const shape = getRandomShape();
-  return <HStack border='1px solid gray' p='2' spacing='4'>
+  return <HStack 
+      visibility={hide ? 'hidden' : 'visible'}
+      border='1px solid gray' 
+      p='2' 
+      spacing='4'>
     <DisplaySide 
       size={size} 
       hideContent={side === SidesKeyboard.RIGHT} 

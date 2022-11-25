@@ -16,19 +16,22 @@ const Game: FunctionComponent<GameProps> = memo(({
   config: { activeText, boardSize, activeTime } }) => {
   const toast = useToastMessage();
   const [reset, setReset] = useState(true);
+
   useEffect(() => {
     setReset(false);
   }, []);
-  const handleResult = ({ success, message }: BoardResult) => {
+
+  const handleResult = async ({ success, message }: BoardResult) => {
     toast({ success, message });
     if (success) {
-      IncrementUserScore(name, 1);
+      await IncrementUserScore(name, 1);
     }
     setReset(true);
     setTimeout(() => {
       setReset(false);
     }, 0);
   }
+
   return <Container>
     <Box my='8'>
       <PlayerInfo name={name}/>
