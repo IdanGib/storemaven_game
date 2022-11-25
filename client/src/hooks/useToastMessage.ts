@@ -13,6 +13,7 @@ export function useToastMessage() {
     ref.current = toast(
       {
         title: message,
+        duration: 2000,
         status: success ? 'success' : 'error'
       }
     );
